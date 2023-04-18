@@ -22,10 +22,10 @@ function setClass(element, cls) {
 
 function updateAutoApplyText(isAuto) {
   if (isAuto) {
-    autoButton.innerText = "Disable Auto Apply";
+    autoButton.innerHTML = "Disable Auto Apply";
     setClass(autoButton, buttonDisabledClass);
   } else {
-    autoButton.innerText = "Enable Auto Apply";
+    autoButton.innerHTML = "Enable Auto Apply";
     setClass(autoButton, buttonEnabledClass);
   }
 }
