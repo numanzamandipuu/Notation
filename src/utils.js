@@ -1,4 +1,4 @@
-export let defaultHighlightSheet = "font-weight: 600";
+export let defaultHighlightSheet = 600;
 export let defaultRestSheet = "opacity: 0.9;";
 export let defaultAlgorithm = "- 0 1 1 2 0.4";
 

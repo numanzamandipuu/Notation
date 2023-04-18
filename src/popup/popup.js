@@ -16,6 +16,8 @@ var buttonDisabledClass = "button-disabled btn btn-danger btn-sm";
 let output1 = document.getElementById("v1");
 let output2 = document.getElementById("v2");
 
+output1.innerHTML = highlightSheetInput.value;
+
 function setClass(element, cls) {
   element.className = cls;
 }
@@ -33,13 +35,19 @@ function updateAutoApplyText(isAuto) {
 chrome.storage.sync.get(
   ["highlightSheet", "restSheet", "autoApply", "isOn", "algorithm"],
   (data) => {
-    highlightSheetInput.value = data.highlightSheet;
+    highlightSheetInput.value = data.highlightSheet.split(":")[1].trim();
     restSheetInput.value = data.restSheet;
     output1.innerHTML = fontWeightValue;
     output2.innerHTML = data.restSheet + "%";
     updateAutoApplyText(data.autoApply);
   }
 );
+
+chrome.storage.sync.get("highlightSheet", function(data) {
+  let fontWeightValue = parseInt(data.highlightSheet.match(/\d+/)[0]);
+  document.getElementById("highlight-input").value = fontWeightValue;
+  output1.innerHTML = fontWeightValue;
+});
 
 highlightSheetInput.addEventListener("input", async (text) => {
   onHighlightInputChange();
@@ -52,7 +60,7 @@ restSheetInput.addEventListener("input", async (text) => {
 
 restoreButton.addEventListener("click", async () => {
   chrome.storage.sync.set({
-    highlightSheet: defaultHighlightSheet,
+    highlightSheet: `font-weight: ${defaultHighlightSheet};`,
     restSheet: defaultRestSheet,
   });
   highlightSheetInput.value = defaultHighlightSheet;
