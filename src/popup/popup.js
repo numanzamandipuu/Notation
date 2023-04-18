@@ -87,6 +87,10 @@ autoButton.addEventListener("click", async () => {
   });
 });
 
+chrome.storage.sync.get("autoApply", (data) => {
+  updateAutoApplyText(data.autoApply);
+});
+
 function onHighlightInputChange() {
   let fontWeightValue = highlightSheetInput.value;
   let highlightSheetValue = `font-weight: ${fontWeightValue};`;

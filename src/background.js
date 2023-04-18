@@ -35,7 +35,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "toggle-auto-noranic") {
     chrome.storage.sync.get(["autoApply"], (data) => {
-      chrome.storage.sync.set({ autoApply: !data.autoApply });
+      let autoApply = !data.autoApply;
+      chrome.storage.sync.set({ autoApply: autoApply }, () => {
+        chrome.commands.update({
+          name: "toggle-auto-noranic",
+          checked: autoApply,
+        });
+      });
     });
   }
   if (command === "toggle-noranic") {
