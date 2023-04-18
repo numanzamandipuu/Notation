@@ -1,0 +1,91 @@
+body {
+  margin: 0px;
+  font-family: Helvetica, Inter, -apple-system, BlinkMacSystemFont, "Roboto",
+    sans-serif;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+button.current {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+}
+
+.button-enabled {
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+}
+
+.button-disabled {
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #fc5aff 0,
+    #ff5461 100%
+  );
+}
+
+.label {
+  margin: 5px;
+  font-weight: bold;
+}
+
+.desc {
+  text-align: center;
+  margin: 5px;
+}
+
+.div-group {
+  margin-bottom: 10px;
+  border: 2px;
+  border-radius: 6px;
+  border-style: dotted;
+  border-color: grey;
+  /* padding: 5px; */
+  margin: 8px;
+}
+
+.small-group {
+  text-align: center;
+  padding: 2px;
+}
+
+input {
+  width: 90%;
+}
+
+.header {
+  padding: 5px;
+  text-align: center;
+  background: #1abc9c;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    /* #2c3e50 0,
+    #000000 100%  */ #8c8c8c 0,
+    #000000 100%
+  );
+  color: white;
+}
+
+.header_logo {
+  font-family: Open Sans, Segoe UI, Helvetica Neue, Ubuntu, sans-serif;
+  width: 12rem;
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+

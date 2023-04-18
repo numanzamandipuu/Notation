@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body class="text-bg-dark">
+
+    <div class="card text-bg-dark pb-0">
+      <img src="..\icons\marquee.png" class="card-img-top" alt="Notation">
+      <div class="card-body p-2 pb-2">
+        <h5 class="card-title">
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-light btn-sm" id="applyButton">Trigger Notation</button>
+            <button type="button" class="btn btn-light btn-sm" id="autoButton">Enable Auto Apply</button>
+          </div>
+        </h5>
+      </div>
+    </div>
+
+    <!-- <div class="button-container">
+      <button id="applyButton">&#128214; Toggle noranic</button>
+    </div>
+    <div class="button-container">
+      <button id="autoButton">Toggle Auto</button>
+    </div> -->
+<!-- 
+    <div class="div-group">
+
+
+      <div class="small-group"> -->
+        <!-- <div class="label">Exclude URL</div> -->
+
+        <!-- <input type="text" id="excludePattern" name="highlight" /> -->
+
+        <!-- <div class="button-container"> -->
+          <!-- <button id="excludePageButton">Add Pattern</button> -->
+        <!-- </div> -->
+        <!-- <div class="label">Highlighted Styles</div>
+        <input type="text" id="highlight-input" name="highlight" />
+      </div>
+
+
+      <div class="small-group">
+        <div class="label">Unhighlighted Styles</div>
+        <input type="text" id="rest-input" name="rest" />
+      </div> -->
+
+
+    <div class="card text-bg-dark p-2 pb-0">
+      <div class="card-header text-center py-2"><h1 class="small" style="font-size: 20px; color: aqua;">Customization</h1></div>
+      <div class="card-body p-2">
+
+        <div class="card text-bg-dark text-center p-2 pb-0">
+          <div class="card-body p-0">
+            <h5 class="card-title small">Highlighted Font Weidth</h5>
+            <input type="range" class="custom-range" min="500" max="900" step="100" value="600" id="highlight-input">
+            <h3 class="text-center text-info small" id="v1">600</h3>
+          </div>
+        </div>
+        
+        <div class="card text-bg-dark text-center p-2 pb-0">
+          <div class="card-body p-0">
+            <h5 class="card-title small">Unhighlighted Font Opacity</h5>
+            <input type="range" class="custom-range" min="50" max="100" step="10" value="90" id="rest-input">
+            <h3 class="text-center text-info small" id="v2">0</h3>
+          </div>
+        </div>
+        <div class="d-grid gap-2 pt-2">
+          <button type="button" class="btn btn-outline-light btn-sm" id="restore-button">Restore Default</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row pt-2">
+        <div class="text-center">
+
+            <a href="https://www.linkedin.com/in/fahadbinhussain/">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="30" height="30" fill="currentColor" >
+                <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+            </a>
+
+        </div> 
+      </div>
+      <div class="row">
+        <div class="text-center" style="font-size: 12px; opacity: 0.5;">
+          &#169; 2023 Notation <br> All Rights Reserved
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+      <!-- <div class="small-group">
+        <div class="label">
+          Highlight Algorithm
+          <a
+            href="https://github.com/Cveinnt/noranic#algorithm-specification"
+            target="_blank"
+            ><b>(?)</b></a
+          >
+        </div>
+        <input type="text" id="algorithmInput" name="algorithm" />
+      </div>
+      <div class="button-container">
+        <button id="restore-button">Restore Default</button>
+      </div>
+    </div>
+
+    <a href="https//www.github.com/Cveinnt"
+      ><p style="text-align: center">GitHub</p></a
+    >
+    <div class="small-group">
+      <iframe
+        src="https://ghbtns.com/github-btn.html?user=cveinnt&repo=noranic&type=star&count=true"
+        frameborder="0"
+        scrolling="0"
+        width="150"
+        height="20"
+        title="Stars"
+      ></iframe>
+    </div> -->
+
+    <script src="popup.js" type="module"></script>
+    <script src="bootstrap.bundle.min.js" type="module"></script>
+  </body>
+</html>

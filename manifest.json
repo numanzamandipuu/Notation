@@ -1,0 +1,39 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "name": "Noranic",
+  "description": "Renovating the way you read Bangla: Noranic.",
+  "author": "Numan Zaman DIpu",
+  "version": "1.0.1",
+  "manifest_version": 3,
+  "icons": {
+    "16": "src/icons/favicon-16.png",
+    "32": "src/icons/favicon-32.png",
+    "48": "src/icons/favicon-48.png",
+    "128": "src/icons/favicon-128.png"
+  },
+
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["http://*/", "https://*/"],
+  "action": {
+    "default_popup": "src/popup/popup.html"
+  },
+
+  "commands": {
+    "toggle-noranic": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "noranic the current tab"
+    },
+    "toggle-auto-noranic": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H"
+      },
+      "description": "Toggle auto noranic"
+    }
+  }
+}
