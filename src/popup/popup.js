@@ -2,7 +2,6 @@ import {
   noranic,
   defaultHighlightSheet,
   defaultRestSheet,
-  defaultAlgorithm,
 } from "../utils.js";
 
 let applyButton = document.getElementById("applyButton");
@@ -16,7 +15,9 @@ var buttonDisabledClass = "button-disabled btn btn-danger btn-sm";
 let output1 = document.getElementById("v1");
 let output2 = document.getElementById("v2");
 
+restSheetInput.value = defaultRestSheet;
 output1.innerHTML = highlightSheetInput.value;
+output2.innerHTML = restSheetInput.value + "%";
 
 function setClass(element, cls) {
   element.className = cls;
@@ -36,9 +37,9 @@ chrome.storage.sync.get(
   ["highlightSheet", "restSheet", "autoApply", "isOn", "algorithm"],
   (data) => {
     highlightSheetInput.value = data.highlightSheet.split(":")[1].trim();
-    restSheetInput.value = data.restSheet;
+    restSheetInput.value = data.restSheet.split(":")[1].trim();
     output1.innerHTML = fontWeightValue;
-    output2.innerHTML = data.restSheet + "%";
+    output2.innerHTML = opacityValue + "%";
     updateAutoApplyText(data.autoApply);
   }
 );
@@ -47,6 +48,12 @@ chrome.storage.sync.get("highlightSheet", function(data) {
   let fontWeightValue = parseInt(data.highlightSheet.match(/\d+/)[0]);
   document.getElementById("highlight-input").value = fontWeightValue;
   output1.innerHTML = fontWeightValue;
+});
+
+chrome.storage.sync.get("restSheet", function(data) {
+  let opacityValue = parseInt(data.restSheet.match(/opacity:\s*(\d+(?:\.\d+)?)/i)[1] * 100);
+  document.getElementById("rest-input").value = opacityValue;
+  output2.innerHTML = opacityValue + "%";
 });
 
 highlightSheetInput.addEventListener("input", async (text) => {
@@ -61,11 +68,12 @@ restSheetInput.addEventListener("input", async (text) => {
 restoreButton.addEventListener("click", async () => {
   chrome.storage.sync.set({
     highlightSheet: `font-weight: ${defaultHighlightSheet};`,
-    restSheet: defaultRestSheet,
+    restSheet: `opacity: ${defaultRestSheet / 100};`,
   });
   highlightSheetInput.value = defaultHighlightSheet;
   restSheetInput.value = defaultRestSheet;
-  output1.innerHTML = 600;
+  output1.innerHTML = highlightSheetInput.value;
+  output2.innerHTML = restSheetInput.value + "%";
 });
 
 applyButton.addEventListener("click", async () => {
@@ -99,5 +107,8 @@ function onHighlightInputChange() {
 }
 
 function onRestInputChange() {
-  chrome.storage.sync.set({ restSheet: restSheetInput.value });
+  let opacityValue = restSheetInput.value;
+  let restSheetValue = `opacity: ${opacityValue / 100};`;
+  chrome.storage.sync.set({ restSheet: restSheetValue});
+  output2.innerHTML = opacityValue + "%";
 }

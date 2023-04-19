@@ -1,5 +1,5 @@
 export let defaultHighlightSheet = 600;
-export let defaultRestSheet = "opacity: 0.9;";
+export let defaultRestSheet = 90;
 export let defaultAlgorithm = "- 0 1 1 2 0.4";
 
 export function noranic() {

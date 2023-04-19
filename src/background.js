@@ -9,7 +9,7 @@ import {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({
     highlightSheet: `font-weight: ${defaultHighlightSheet};`,
-    restSheet: defaultRestSheet,
+    restSheet: `opacity: ${defaultRestSheet / 100};`,
     autoApply: false,
     excludedPatterns: [],
     algorithm: defaultAlgorithm,
