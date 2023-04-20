@@ -1,8 +1,8 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
   "name": "Notation",
-  "description": "Renovating the way you read: Notation.",
-  "author": "Numan Zaman DIpu",
+  "description": "Renovating the Way You Read: Notation.",
+  "author": "Numan Zaman Dipu",
   "version": "1.0.1",
   "manifest_version": 3,
   "icons": {
@@ -27,13 +27,13 @@
       "suggested_key": {
         "default": "Ctrl+Shift+Y"
       },
-      "description": "notation the current tab"
+      "description": "Notation the Current Tab"
     },
     "toggle-auto-notation": {
       "suggested_key": {
         "default": "Ctrl+Shift+H"
       },
-      "description": "Toggle auto notation"
+      "description": "Toggle Auto Notation"
     }
   }
 }
