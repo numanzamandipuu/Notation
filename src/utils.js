@@ -2,7 +2,7 @@ export let defaultHighlightSheet = 600;
 export let defaultRestSheet = 90;
 export let defaultAlgorithm = "- 0 1 1 2 0.4";
 
-export function noranic() {
+export function notation() {
   function parseAlgorithm(algorithm) {
     try {
       var res = {
@@ -41,11 +41,11 @@ export function noranic() {
       chrome.storage.sync.get(["highlightSheet", "restSheet"], function (data) {
         var style = document.createElement("style");
         style.type = "text/css";
-        style.id = "noranic-style-id";
+        style.id = "notation-style-id";
         style.innerHTML =
-          ".noranic-highlight {" +
+          ".notation-highlight {" +
           data.highlightSheet +
-          " } .noranic-rest {" +
+          " } .notation-rest {" +
           data.restSheet +
           "}";
         document.getElementsByTagName("head")[0].appendChild(style);
@@ -53,12 +53,12 @@ export function noranic() {
     }
 
     function deleteStyleSheet() {
-      var sheet = document.getElementById("noranic-style-id");
+      var sheet = document.getElementById("notation-style-id");
       sheet.remove();
     }
 
     function hasStyleSheet() {
-      return document.getElementById("noranic-style-id") != null;
+      return document.getElementById("notation-style-id") != null;
     }
 
     let commonWords = [
@@ -79,7 +79,7 @@ export function noranic() {
       "my",
     ];
 
-    function noranicifyWord(word) {
+    function notationifyWord(word) {
       function isCommon(word) {
         return commonWords.indexOf(word) != -1;
       }
@@ -130,22 +130,22 @@ export function noranic() {
       }
 
       return (
-        '<noranic class="noranic-highlight">' +
+        '<notation class="notation-highlight">' +
         word.slice(0, numBold) +
-        "</noranic>" +
-        '<noranic class="noranic-rest">' +
+        "</notation>" +
+        '<notation class="notation-rest">' +
         word.slice(numBold) +
-        "</noranic>"
+        "</notation>"
       );
     }
 
-    function noranicifyText(text) {
+    function notationifyText(text) {
       var res = "";
       if (text.length < 10) {
         return text;
       }
       for (var word of text.split(" ")) {
-        res += noranicifyWord(word) + " ";
+        res += notationifyWord(word) + " ";
       }
       return res;
     }
@@ -189,7 +189,7 @@ export function noranic() {
       // .replace(/\//g, "&#x2F;");
     }
 
-    function noranicifyNode(node) {
+    function notationifyNode(node) {
       if (
         node.tagName === "SCRIPT" ||
         node.tagName === "STYLE" ||
@@ -198,15 +198,15 @@ export function noranic() {
         return;
       if (node.childNodes == undefined || node.childNodes.length == 0) {
         if (node.textContent != undefined && node.tagName == undefined) {
-          var newNode = document.createElement("noranic");
-          newNode.innerHTML = noranicifyText(sanitize(node.textContent));
+          var newNode = document.createElement("notation");
+          newNode.innerHTML = notationifyText(sanitize(node.textContent));
           if (node.textContent.length > 20) {
             node.replaceWith(newNode);
           }
         }
       } else {
         for (var child of node.childNodes) {
-          noranicifyNode(child);
+          notationifyNode(child);
         }
       }
     }
@@ -215,7 +215,7 @@ export function noranic() {
       deleteStyleSheet();
     } else {
       createStylesheet();
-      noranicifyNode(document.body);
+      notationifyNode(document.body);
     }
   });
 }

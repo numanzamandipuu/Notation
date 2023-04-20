@@ -1,7 +1,7 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "name": "Noranic",
-  "description": "Renovating the way you read Bangla: Noranic.",
+  "name": "Notation",
+  "description": "Renovating the way you read: Notation.",
   "author": "Numan Zaman DIpu",
   "version": "1.0.1",
   "manifest_version": 3,
@@ -23,17 +23,17 @@
   },
 
   "commands": {
-    "toggle-noranic": {
+    "toggle-notation": {
       "suggested_key": {
         "default": "Ctrl+Shift+Y"
       },
-      "description": "noranic the current tab"
+      "description": "notation the current tab"
     },
-    "toggle-auto-noranic": {
+    "toggle-auto-notation": {
       "suggested_key": {
         "default": "Ctrl+Shift+H"
       },
-      "description": "Toggle auto noranic"
+      "description": "Toggle auto notation"
     }
   }
 }

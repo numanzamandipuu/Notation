@@ -1,5 +1,5 @@
 import {
-  noranic,
+  notation,
   defaultHighlightSheet,
   defaultRestSheet,
 } from "../utils.js";
@@ -10,8 +10,8 @@ let restoreButton = document.getElementById("restore-button");
 let highlightSheetInput = document.getElementById("highlight-input");
 let restSheetInput = document.getElementById("rest-input");
 
-var buttonEnabledClass = "button-enabled btn btn-light btn-sm";
-var buttonDisabledClass = "button-disabled btn btn-danger btn-sm";
+var buttonEnabledClass = "btn btn-light btn-sm";
+var buttonDisabledClass = "btn btn-danger btn-sm";
 let output1 = document.getElementById("v1");
 let output2 = document.getElementById("v2");
 
@@ -81,7 +81,7 @@ applyButton.addEventListener("click", async () => {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: noranic,
+    function: notation,
   });
   chrome.storage.sync.get(["isOn"], (data) => {
     chrome.storage.sync.set({ isOn: !data.isOn });

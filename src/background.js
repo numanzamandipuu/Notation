@@ -1,5 +1,5 @@
 import {
-  noranic,
+  notation,
   patternsInclude,
   defaultHighlightSheet,
   defaultRestSheet,
@@ -24,7 +24,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
         if (!patternsInclude(data.excludedPatterns, tab.url)) {
           chrome.scripting.executeScript({
             target: { tabId: tabId },
-            function: noranic,
+            function: notation,
           });
         }
       }
@@ -33,23 +33,23 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 });
 
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command === "toggle-auto-noranic") {
+  if (command === "toggle-auto-notation") {
     chrome.storage.sync.get(["autoApply"], (data) => {
       let autoApply = !data.autoApply;
       chrome.storage.sync.set({ autoApply: autoApply }, () => {
         chrome.commands.update({
-          name: "toggle-auto-noranic",
+          name: "toggle-auto-notation",
           checked: autoApply,
         });
       });
     });
   }
-  if (command === "toggle-noranic") {
+  if (command === "toggle-notation") {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: noranic,
+      function: notation,
     });
   }
 });

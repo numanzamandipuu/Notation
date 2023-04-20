@@ -1,5 +1,5 @@
   import {
-    noranic,
+    notation,
     defaultHighlightSheet,
     defaultRestSheet,
   } from "../utils.js";
@@ -60,12 +60,12 @@
     output1.innerHTML = fontWeightValue;
   });
   
-  function updatenoranicToggle(isOn) {
+  function updatenotationToggle(isOn) {
     if (isOn) {
-      applyButton.innerText = "noranic: On";
+      applyButton.innerText = "notation: On";
       setClass(applyButton, buttonEnabledClass);
     } else {
-      applyButton.innerText = "noranic: Off";
+      applyButton.innerText = "notation: Off";
       setClass(applyButton, buttonDisabledClass);
     }
   }
@@ -75,10 +75,10 @@
   
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: noranic,
+      function: notation,
     });
     chrome.storage.sync.get(["isOn"], (data) => {
-      // updatenoranicToggle(!data.isOn);
+      // updatenotationToggle(!data.isOn);
       chrome.storage.sync.set({ isOn: !data.isOn });
     });
   });
