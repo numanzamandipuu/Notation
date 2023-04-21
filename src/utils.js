@@ -185,8 +185,6 @@ export function notation() {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/\"/g, "&quot;");
-      // .replace(/\'/g, "&#39;");
-      // .replace(/\//g, "&#x2F;");
     }
 
     function notationifyNode(node) {

@@ -27,13 +27,13 @@
       "suggested_key": {
         "default": "Ctrl+Shift+Y"
       },
-      "description": "Notation the Current Tab"
+      "description": "Trigger Notation"
     },
     "toggle-auto-notation": {
       "suggested_key": {
         "default": "Ctrl+Shift+H"
       },
-      "description": "Toggle Auto Notation"
+      "description": "Enable Auto Apply"
     }
   }
 }
