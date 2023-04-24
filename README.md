@@ -40,22 +40,33 @@
   - [Installation](#installation)
   - [Features](#features)
   - [System Architecture](#system-architecture)
-  - [Usage](#usage)
   - [Contributing](#contributing)
-    - [Installation](#installation)
+    - [Clone Reposiory](#clone-reposiory)
       - [HTTPS](#https)
       - [SSH](#ssh)
       - [GitHub CLI](#github-cli)
       - [GitHub Desktop](#github-desktop)
+  - [Code of Conduct](#code-of-conduct)
   - [Support](#support)
   - [License](#license)
-  - [Acknowledgements](#acknowledgements)
 
 </details>
 
 
 # Installation
 
+1.  First, go to this [Release Page](https://github.com/numanzamandipuu/Notation/releases/tag/v1.0.0) of the Notation repository and download the [Source Code(zip)](https://github.com/numanzamandipuu/Notation/archive/refs/tags/v1.0.0.zip) file from the bottom of that page.
+2.  After downloading, unzip the file and you should see a folder named "Notation-1.0.0".
+3.  Open your Chrome or Edge web browser, and go to the following link:
+    -   For Chrome: [chrome://extensions/](chrome://extensions/)
+    -   For Edge: [edge://extensions/](edge://extensions/)
+4.  On the page, make sure to enable "Developer mode".
+    -   For Chrome: It is located on the top-right corner of the page.
+    -   For Edge: It is located on the bottom-left corner of the page.
+5.  Now, you'll find a button called "Load Unpacked Extension". Click on that.
+6.  Select the "Notation-1.0.0" folder that you have unzipped earlier and click "Select Folder".
+
+Congratulations! Notation is now installed and ready to use. Make sure to pin the extension for better experience!
 
 
 # Features
@@ -80,13 +91,69 @@ Overall, the purpose of this Extension is to enhance the reading experience of u
 
 # System Architecture
 
+ - **One Click Activation:** The extension has a main trigger button that activates the core functionality. This is implemented through an event listener that waits for the user to click the button, at which point it triggers applyButton to activate notation() Function.
+ - **Auto Apply Feature:** To streamline the user experience, the extension includes an auto apply button. It automatically applies the custom font-weight and opacity values to every website the user visits. This is implemented through a similar event listener, but with different trigger conditions.
+ - **Customizable Font Weight & Font Opacity:** The range sliders for font-weight and opacity allow the user to customize the visual appearance of the converted text. These sliders rely on JavaScript code that dynamically updates the CSS properties of the relevant elements.
+ - **Easy to Restore:** The restore default button provides a simple way for the user to revert to the original font-weight and opacity values. This functionality works by resetting the range slider values to their default positions, which in turn updates the CSS properties of the elements.
 
-# Usage
 
-To use the repository, navigate to the relevant folder for the problem you're interested in. Then follow the following steps:
 
-- Each folder contains a C++ solution file and a README file with the original problem link. You can have a look to those files.
-- Review the solution code and problem statement to gain insight into how the problem was solved.
-- Contribute to the repository by submitting solutions to existing problems or adding new solutions following the Contribution Guidelines.
 
-This repository is intended to provide a resource for competitive programmers of all levels, from beginners to advanced, looking to improve their problem-solving skills and explore new algorithms and data structures.
+# Contributing
+
+We welcome contributions to Notation! If you're interested in contributing, follow these steps:
+
+## Clone Reposiory
+
+To use this repository, simply clone it to your local machine using one of the following commands:
+
+### HTTPS
+Use Git or checkout with SVN using the web URL.
+
+```
+https://github.com/numanzamandipuu/Notation.git
+```
+
+### SSH
+Use a password-protected SSH key.
+
+```
+git@github.com:numanzamandipuu/Notation.git
+```
+
+### GitHub CLI
+Work fast with GitHub's official CLI. 
+
+```
+gh repo clone numanzamandipuu/Notation
+```
+
+### GitHub Desktop
+Open with GitHub Desktop Application.
+
+```
+x-github-client://openRepo/https://github.com/numanzamandipuu/Notation
+```
+
+Once the cloning process is done, you can contribute in several ways: 
+
+- **Report issues:** If you come across a bug or have an idea for an improvement, you can report it on the project's [GitHub Issues](https://github.com/numanzamandipuu/Notation/issues) page.
+
+- **Submit Pull Requests:** If you are interested in contributing code to the project, you can fork the repository, make changes to your forked copy, and then submit a [Pull Request](https://github.com/numanzamandipuu/Notation/pulls) to merge your changes back into the main codebase.
+
+- **Help With Documentation:** You can help with documentation. This can include writing tutorials, updating the project's README file, or adding comments to the code to make it more clear and understandable.
+
+
+# Code of Conduct
+
+Notation follows a Code of Conduct that promotes a safe, inclusive, and respectful environment for all contributors and users. By contributing to this repository, you agree to abide and uphold its principles.
+
+
+# Support
+
+Notation is committed to providing excellent support to its users. If you encounter any issues or have questions about the extension, I encourage you to reach out for assistance. You can connect with me on [LinkedIn](https://www.linkedin.com/in/numanzamandipuu/) or send me an email at [2102115@student.ruet.ac.bd](mailto:2102115@student.ruet.ac.bd). I will respond ASAP to address your concerns.
+
+
+# License
+
+Notation, as an open-source software, is distributed under the [Apache-2.0 license](LICENSE), which grants users the right to use, modify, and distribute the code as they see fit, with the condition that any derivative works must also be distributed under the same license. By choosing to distribute Notation under this license, we aim to encourage collaboration and community contributions while ensuring legal protection for both users and contributors.
