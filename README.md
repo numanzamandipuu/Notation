@@ -58,11 +58,11 @@
 1.  First, go to this [Release Page](https://github.com/numanzamandipuu/Notation/releases/tag/v1.0.0) of the Notation repository and download the [Source Code(zip)](https://github.com/numanzamandipuu/Notation/archive/refs/tags/v1.0.0.zip) file from the bottom of that page.
 2.  After downloading, unzip the file and you should see a folder named "Notation-1.0.0".
 3.  Open your Chrome or Edge web browser, and go to the following link:
-    -   For Chrome: [chrome://extensions/](chrome://extensions/)
-    -   For Edge: [edge://extensions/](edge://extensions/)
+    -   **For Chrome:** [chrome://extensions/](chrome://extensions/)
+    -   **For Edge:** [edge://extensions/](edge://extensions/)
 4.  On the page, make sure to enable "Developer mode".
-    -   For Chrome: It is located on the top-right corner of the page.
-    -   For Edge: It is located on the bottom-left corner of the page.
+    -   **For Chrome:** It is located on the top-right corner of the page.
+    -   **For Edge:** It is located on the bottom-left corner of the page.
 5.  Now, you'll find a button called "Load Unpacked Extension". Click on that.
 6.  Select the "Notation-1.0.0" folder that you have unzipped earlier and click "Select Folder".
 
@@ -137,7 +137,7 @@ x-github-client://openRepo/https://github.com/numanzamandipuu/Notation
 
 Once the cloning process is done, you can contribute in several ways: 
 
-- **Report issues:** If you come across a bug or have an idea for an improvement, you can report it on the project's [GitHub Issues](https://github.com/numanzamandipuu/Notation/issues) page.
+- **Report Issues:** If you come across a bug or have an idea for an improvement, you can report it on the project's [GitHub Issues](https://github.com/numanzamandipuu/Notation/issues) page.
 
 - **Submit Pull Requests:** If you are interested in contributing code to the project, you can fork the repository, make changes to your forked copy, and then submit a [Pull Request](https://github.com/numanzamandipuu/Notation/pulls) to merge your changes back into the main codebase.
 
