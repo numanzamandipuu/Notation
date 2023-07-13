@@ -2,7 +2,7 @@
   "name": "Notation",
   "description": "Renovating the Way You Read: Notation.",
   "author": "Numan Zaman Dipu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 3,
   "icons": {
     "16": "src/icons/favicon-16.png",
