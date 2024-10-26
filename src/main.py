@@ -1,5 +1,2 @@
 word = input("Enter a word: ")
-
-for char in word:
-    ascii_value = ord(char)
-    print(char, ascii_value)
+print(*(f"{char}: {ord(char)}" for char in word), sep="\n")

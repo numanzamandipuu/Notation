@@ -1,77 +1,80 @@
 import { notation, defaultHighlightSheet, defaultRestSheet } from "../utils.js";
 
-const applyButton = document.getElementById("applyButton");
-const autoButton = document.getElementById("autoButton");
-const restoreButton = document.getElementById("restore-button");
-const highlightSheetInput = document.getElementById("highlight-input");
-const restSheetInput = document.getElementById("rest-input");
+// Element references
+const elements = {
+  applyButton: document.getElementById("applyButton"),
+  autoButton: document.getElementById("autoButton"),
+  restoreButton: document.getElementById("restore-button"),
+  highlightInput: document.getElementById("highlight-input"),
+  restInput: document.getElementById("rest-input"),
+  output1: document.getElementById("v1"),
+  output2: document.getElementById("v2"),
+};
 
-const buttonEnabledClass = "btn btn-light btn-sm";
-const buttonDisabledClass = "btn btn-danger btn-sm";
-const output1 = document.getElementById("v1");
-const output2 = document.getElementById("v2");
+const classes = {
+  enabled: "btn btn-light btn-sm",
+  disabled: "btn btn-danger btn-sm",
+};
 
-// Initialize input values and output displays
+// Initialize input and output with default values
 function initValues() {
-  highlightSheetInput.value = defaultHighlightSheet;
-  restSheetInput.value = defaultRestSheet;
-  output1.innerHTML = defaultHighlightSheet;
-  output2.innerHTML = `${defaultRestSheet}%`;
+  updateUI(defaultHighlightSheet, defaultRestSheet);
 }
 
-initValues();
-
-// Update class helper function
-function setClass(element, cls) {
-  element.className = cls;
+// Update UI elements based on values
+function updateUI(highlight, rest) {
+  elements.highlightInput.value = highlight;
+  elements.restInput.value = rest;
+  elements.output1.textContent = highlight;
+  elements.output2.textContent = `${rest}%`;
 }
 
-// Update the text and class of the auto apply button
-function updateAutoApplyText(isAuto) {
-  autoButton.innerHTML = isAuto ? "Disable Auto Apply" : "Enable Auto Apply";
-  setClass(autoButton, isAuto ? buttonDisabledClass : buttonEnabledClass);
+// Toggle button text and class for auto apply
+function toggleAutoApplyButton(isAuto) {
+  elements.autoButton.textContent = isAuto ? "Disable Auto Apply" : "Enable Auto Apply";
+  elements.autoButton.className = isAuto ? classes.disabled : classes.enabled;
 }
 
-// Helper to extract style values from a stored string
-function extractStyleValue(styleString, regex) {
-  const match = styleString.match(regex);
-  return match ? parseInt(match[1], 10) : null;
-}
+// Extract numerical values from style strings
+const extractValue = (str, regex) => {
+  const match = str.match(regex);
+  return match ? parseFloat(match[1]) : null;
+};
 
-// Load the stored values and update the display
+// Load and apply stored settings
 async function loadStoredValues() {
-  const { highlightSheet, restSheet, autoApply } = await chrome.storage.sync.get(["highlightSheet", "restSheet", "autoApply"]);
-  const fontWeightValue = extractStyleValue(highlightSheet, /font-weight:\s*(\d+);/);
-  const opacityValue = extractStyleValue(restSheet, /opacity:\s*(\d+(?:\.\d+)?);/) * 100;
+  const { highlightSheet, restSheet, autoApply } = await chrome.storage.sync.get([
+    "highlightSheet", 
+    "restSheet", 
+    "autoApply",
+  ]);
 
-  highlightSheetInput.value = fontWeightValue || defaultHighlightSheet;
-  restSheetInput.value = opacityValue || defaultRestSheet;
-  output1.innerHTML = fontWeightValue || defaultHighlightSheet;
-  output2.innerHTML = `${opacityValue || defaultRestSheet}%`;
-  updateAutoApplyText(autoApply);
+  const fontWeight = extractValue(highlightSheet, /font-weight:\s*(\d+);/) || defaultHighlightSheet;
+  const opacity = (extractValue(restSheet, /opacity:\s*(\d+(?:\.\d+)?);/) || defaultRestSheet / 100) * 100;
+
+  updateUI(fontWeight, opacity);
+  toggleAutoApplyButton(autoApply);
 }
 
-loadStoredValues();
-
-// Update storage with new style value
-async function setStyleValue(styleKey, inputElement, outputElement, transformFunction = value => value) {
-  const value = inputElement.value;
-  const styleValue = transformFunction(value);
-  await chrome.storage.sync.set({ [styleKey]: styleValue });
-  outputElement.textContent = value;
+// Store new style values and update output
+async function updateStyle(key, input, output, transform = (v) => v) {
+  const value = input.value;
+  await chrome.storage.sync.set({ [key]: transform(value) });
+  output.textContent = value;
 }
 
-// Event listeners for input changes
-highlightSheetInput.addEventListener("input", () => {
-  setStyleValue('highlightSheet', highlightSheetInput, output1, fontWeightValue => `font-weight: ${fontWeightValue};`);
-});
+// Event listener for highlight input change
+elements.highlightInput.addEventListener("input", () =>
+  updateStyle("highlightSheet", elements.highlightInput, elements.output1, (v) => `font-weight: ${v};`)
+);
 
-restSheetInput.addEventListener("input", () => {
-  setStyleValue('restSheet', restSheetInput, output2, opacityValue => `opacity: ${opacityValue / 100};`);
-});
+// Event listener for rest input change
+elements.restInput.addEventListener("input", () =>
+  updateStyle("restSheet", elements.restInput, elements.output2, (v) => `opacity: ${v / 100};`)
+);
 
-// Restore button functionality
-restoreButton.addEventListener("click", async () => {
+// Restore default values
+elements.restoreButton.addEventListener("click", async () => {
   await chrome.storage.sync.set({
     highlightSheet: `font-weight: ${defaultHighlightSheet};`,
     restSheet: `opacity: ${defaultRestSheet / 100};`,
@@ -79,52 +82,30 @@ restoreButton.addEventListener("click", async () => {
   initValues();
 });
 
-// Apply the custom styles by invoking the notation function
-applyButton.addEventListener("click", async () => {
+// Apply custom styles to the active tab
+elements.applyButton.addEventListener("click", async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: notation,
-  });
+  await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: notation });
 
   const { isOn } = await chrome.storage.sync.get("isOn");
   await chrome.storage.sync.set({ isOn: !isOn });
 });
 
-// Toggle the auto-apply functionality and update button text and class
-autoButton.addEventListener("click", async () => {
+// Toggle auto-apply setting
+elements.autoButton.addEventListener("click", async () => {
   const { autoApply } = await chrome.storage.sync.get("autoApply");
-  const newAutoApplyValue = !autoApply;
-  await chrome.storage.sync.set({ autoApply: newAutoApplyValue });
-  updateAutoApplyText(newAutoApplyValue);
+  const newAutoApply = !autoApply;
+  await chrome.storage.sync.set({ autoApply: newAutoApply });
+  toggleAutoApplyButton(newAutoApply);
 });
 
-// Initialize the auto-apply button text and class on load
+// Initialize auto-apply button on load
 async function initAutoApply() {
   const { autoApply } = await chrome.storage.sync.get("autoApply");
-  updateAutoApplyText(autoApply);
+  toggleAutoApplyButton(autoApply);
 }
 
+// Initialize everything
+initValues();
+loadStoredValues();
 initAutoApply();
-
-// Update the highlight style value when the input changes
-function onHighlightInputChange() {
-  setStyleValue(
-    'highlightSheet',
-    highlightSheetInput,
-    output1,
-    fontWeightValue => `font-weight: ${fontWeightValue};`
-  );
-}
-
-// Update the rest style value when the input changes
-function onRestInputChange() {
-  setStyleValue(
-    'restSheet',
-    restSheetInput,
-    output2,
-    opacityValue => `opacity: ${opacityValue / 100};`,
-    value => `${value}%`
-  );
-}
