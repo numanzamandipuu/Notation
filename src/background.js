@@ -6,60 +6,43 @@ import {
   defaultAlgorithm,
 } from "./utils.js";
 
-// Listener for when the extension is installed
-chrome.runtime.onInstalled.addListener(() => {
+// Initialize default settings on extension installation
+chrome.runtime.onInstalled.addListener(() =>
   chrome.storage.sync.set({
     highlightSheet: `font-weight: ${defaultHighlightSheet};`,
     restSheet: `opacity: ${defaultRestSheet / 100};`,
     autoApply: false,
     excludedPatterns: [],
     algorithm: defaultAlgorithm,
-  });
-});
+  })
+);
 
-// Listener for when a tab is updated
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status == "complete") {
-    // Get the autoApply and excludedPatterns data from storage
-    chrome.storage.sync.get(["autoApply", "excludedPatterns"], async (data) => {
-      if (data.autoApply) {
-        // Get the tab details
-        let tab = await chrome.tabs.get(tabId);
-        // Check if the tab URL is not in the excluded patterns
-        if (!patternsInclude(data.excludedPatterns, tab.url)) {
-          // Execute the notation function in the tab
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            function: notation,
-          });
+// Automatically apply notation if conditions are met when a tab is updated
+chrome.tabs.onUpdated.addListener((tabId, { status }) => {
+  if (status === "complete") {
+    chrome.storage.sync.get(["autoApply", "excludedPatterns"], async ({ autoApply, excludedPatterns }) => {
+      if (autoApply) {
+        const { url } = await chrome.tabs.get(tabId);
+        if (!patternsInclude(excludedPatterns, url)) {
+          chrome.scripting.executeScript({ target: { tabId }, function: notation });
         }
       }
     });
   }
 });
 
-// Listener for when a command is triggered
+// Handle keyboard commands
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command === "toggle-auto-notation") {
-    // Toggle the autoApply value in storage and update the command status
-    chrome.storage.sync.get(["autoApply"], (data) => {
-      let autoApply = !data.autoApply;
-      chrome.storage.sync.set({ autoApply: autoApply }, () => {
-        chrome.commands.update({
-          name: "toggle-auto-notation",
-          checked: autoApply,
-        });
-      });
-    });
-  }
-  if (command === "toggle-notation") {
-    // Get the active tab
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  switch (command) {
+    case "toggle-auto-notation":
+      chrome.storage.sync.get("autoApply", ({ autoApply }) =>
+        chrome.storage.sync.set({ autoApply: !autoApply })
+      );
+      break;
 
-    // Execute the notation function in the tab
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: notation,
-    });
+    case "toggle-notation":
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (tab) chrome.scripting.executeScript({ target: { tabId: tab.id }, function: notation });
+      break;
   }
 });

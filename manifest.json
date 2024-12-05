@@ -4,6 +4,7 @@
   "author": "Numan Zaman Dipu",
   "version": "1.0.4",
   "manifest_version": 3,
+
   "icons": {
     "16": "src/icons/favicon-16.png",
     "32": "src/icons/favicon-32.png",
@@ -15,8 +16,18 @@
     "service_worker": "src/background.js",
     "type": "module"
   },
-  "permissions": ["storage", "activeTab", "scripting", "tabs"],
-  "host_permissions": ["http://*/", "https://*/"],
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  
+  "host_permissions": [
+    "*://*/*"
+  ],
+
   "action": {
     "default_popup": "src/popup/popup.html"
   },
